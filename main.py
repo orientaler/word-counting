@@ -1,2 +1,4 @@
+from tokenization import tokenize
+
 def main():
-    pass
+    tokenize()
