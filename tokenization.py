@@ -9,36 +9,25 @@ def tokenize(txt:str):
             word += char
             continue
 
-        if char.isdigit():
+        elif char.isdigit():
             word += char
             continue
         
-            
-        word += char
-        
+        elif char.isspace():
+            char.replace(" ", "") 
+
         array.append(word)
-        print(array)
+        
+        if not char.isalpha() and not char.isdigit() and not char.isspace():
+            word += char
+            word = word[:-1]
+            array.append(char)
+
         word = ""
+            
+
+    array.remove("")
     return array
 
-tokenize('12 cider is not grey, but it can be almost grey.')
 
-
-
-
-
-#insert(array)
-
-
-
-# def tokenize(lines):
-#     words = []
-#     for line in lines:
-#         start = 0
-#         while start < len(line):
-#             print(line[start])
-#             start = start+1
-#             print(line.split())
-    
-
-# print()" , ".join(input.lower().split(", ").split(". ")).split())
+print(tokenize('12 cider is not grey, but it can be almost grey.'))
