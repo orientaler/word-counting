@@ -21,15 +21,16 @@ def tokenize(lst:str):
             array.append(word)
             
             if not char.isalpha() and not char.isdigit() and not char.isspace():
-                word += char
-                word = word[:-1]
                 array.append(char)
 
             word = ""
             
-        if ("") in array:
-            array.remove("")
-
         main_array.extend(array)
 
+        if ("") in main_array:
+            main_array.remove("")
+
+
     return main_array
+
+print(tokenize(['"They had 16 rolls of duct tape, 2 bags of clothes pins,','130 hampsters from the cancer labs down the hall, and','at least 500 pounds of grape jello and unknown amounts of chopped liver"','said the source on a recent Geraldo interview.']))
