@@ -1,33 +1,35 @@
-def tokenize(txt:str):
-    array = []
-    word = ""
-    print(word)
-    txt = txt.lower()
-    print(txt)
-    for char in txt:
-        if char.isalpha():
-            word += char
-            continue
-
-        elif char.isdigit():
-            word += char
-            continue
-        
-        elif char.isspace():
-            char.replace(" ", "") 
-
-        array.append(word)
-        
-        if not char.isalpha() and not char.isdigit() and not char.isspace():
-            word += char
-            word = word[:-1]
-            array.append(char)
-
+def tokenize(lst:str):
+    main_array = []
+    
+    for el in lst:
+        array = []
         word = ""
+        el = el.lower()
+        
+        for char in el:
+            if char.isalpha():
+                word += char
+                continue
+
+            elif char.isdigit():
+                word += char
+                continue
             
+            elif char.isspace():
+                char.replace(" ", "") 
 
-    array.remove("")
-    return array
+            array.append(word)
+            
+            if not char.isalpha() and not char.isdigit() and not char.isspace():
+                word += char
+                word = word[:-1]
+                array.append(char)
 
+            word = ""
+            
+        if ("") in array:
+            array.remove("")
 
-print(tokenize('12 cider is not grey, but it can be almost grey.'))
+        main_array.extend(array)
+
+    return main_array
