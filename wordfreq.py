@@ -1,36 +1,46 @@
-def tokenize(lst: str):
-    main_array = []
+def tokenize(lines: list[str]):
+    tokens = []
 
-    for el in lst:
-        array = []
+    for line in lines:
+        words = []
         word = ""
-        el = el.lower()
+        word_type = None
+        line = line.lower()
 
-        for char in el:
-            if char.isalpha():
+        for char in line:
+            if char.isalpha() and word_type != "number":
                 word += char
+                word_type = "word"
                 continue
 
-            if char.isdigit():
+            if char.isdigit() and word_type != "word":
                 word += char
+                word_type = "number"
                 continue
 
-            if char.isspace():
-                char.replace(" ", "")
+            if word:
+                words.append(word)
 
-            array.append(word)
+            if not char.isspace():
+                if char.isalpha() or char.isdigit():
+                    word = char
+                    word_type = "word" if char.isalpha() else "number"
+                    continue
 
-            if not char.isalpha() and not char.isdigit() and not char.isspace():
-                array.append(char)
+                words.append(char)
 
             word = ""
+            word_type = None
 
-        main_array.extend(array)
+        if word:
+            words.append(word)
 
-        if "" in main_array:
-            main_array.remove("")
+        tokens.extend(words)
 
-    return main_array
+        if "" in tokens:
+            tokens.remove("")
+
+    return tokens
 
 
 def countWords(words, stop_words):
