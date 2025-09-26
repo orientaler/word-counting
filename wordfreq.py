@@ -11,11 +11,11 @@ def tokenize(lst: str):
                 word += char
                 continue
 
-            elif char.isdigit():
+            if char.isdigit():
                 word += char
                 continue
 
-            elif char.isspace():
+            if char.isspace():
                 char.replace(" ", "")
 
             array.append(word)
@@ -27,30 +27,30 @@ def tokenize(lst: str):
 
         main_array.extend(array)
 
-        if ("") in main_array:
+        if "" in main_array:
             main_array.remove("")
 
     return main_array
 
 
-def countWords(words, stopWords):
-    wordCount = {}
+def countWords(words, stop_words):
+    word_count = {}
     for word in words:
-        if word not in stopWords:
-            if word in wordCount:
-                wordCount[word] += 1
+        if word not in stop_words:
+            if word in word_count:
+                word_count[word] += 1
             else:
-                wordCount.setdefault(word, 1)
+                word_count.setdefault(word, 1)
 
-    return wordCount
+    return word_count
 
 
-def printTopMost(frequencies, n):
+def printTopMost(frequencies, max_words_to_print):
     sorted_frequencies = sorted(
         frequencies.items(), key=lambda item: item[1], reverse=True
     )
 
-    for i in range(min(n, len(sorted_frequencies))):
+    for i in range(min(max_words_to_print, len(sorted_frequencies))):
         print(
             f"{sorted_frequencies[i][0].ljust(20)}{str(sorted_frequencies[i][1]).rjust(5)}"
         )
