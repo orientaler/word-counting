@@ -1,4 +1,6 @@
 import sys
+import re
+from urllib.request import urlopen
 from wordfreq import tokenize, countWords, printTopMost
 
 
@@ -10,8 +12,12 @@ def main():
     with open(stop_words_path, encoding="utf-8") as file:
         stop_words = file.read()
 
-    with open(words_path, encoding="utf-8") as file:
-        input_lines = file.readlines()
+    if re.search(r'^https?://', words_path):
+        with urlopen(words_path) as response:
+            input_lines = response.read().decode("utf8").splitlines()
+    else:
+        with open(words_path, encoding="utf-8") as file:
+            input_lines = file.readlines()
 
     words = tokenize(input_lines)
     word_counts = countWords(words, stop_words)
